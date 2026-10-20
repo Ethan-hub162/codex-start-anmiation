@@ -3,197 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Starbucks & Mount Fuji</title>
+<title>Codex 启动动画</title>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-  width:100vw;
-  height:100vh;
+  background:#000;
   overflow:hidden;
-  background: #182c48;
+  font-family:system-ui, sans-serif;
 }
-/* 天空渐变 蓝调时刻 */
-.sky{
-  width:100%;
-  height:65%;
-  background: linear-gradient(180deg, #0f2038 0%, #25446b 65%, #48688c 100%);
-  position:relative;
-}
-/* 富士山 */
-.fuji{
-  position:absolute;
-  bottom:12%;
-  left:50%;
-  transform: translateX(-50%);
-  width:620px;
-  height:260px;
-  background: linear-gradient(180deg, #f0f4f9, #b6c8e2);
-  clip-path: polygon(50% 0, 100% 100%, 0 100%);
-  filter: blur(2px);
-  opacity:0.85;
-  z-index:2;
-}
-/* 山间雾气 */
-.fog{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:140px;
-  background: linear-gradient(180deg, rgba(120,150,190,0.45), rgba(80,110,145,0.1));
-  z-index:3;
-}
-/* 星巴克门店容器 */
-.shop-wrap{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:42%;
-  z-index:10;
-}
-.shop{
-  position:absolute;
-  bottom:80px;
-  left:50%;
-  transform: translateX(-50%);
-  width:720px;
-  height:210px;
-  background:#141820;
-  border-radius:4px;
-  overflow:hidden;
-}
-/* 招牌 */
-.sign-top{
-  width:100%;
-  height:42px;
-  background:#11141a;
+.boot-screen{
+  position:fixed;
+  inset:0;
+  background:#000;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:24px;
+  z-index:999;
+  animation: fadeOut 1s ease-out 4s forwards;
 }
-.star-text{
-  color:#ffdd22;
-  font-size:32px;
-  font-weight:bold;
-  letter-spacing:2px;
-  text-shadow: 0 0 10px #ffdd2288;
+.codex-text{
+  font-size:72px;
+  color:#fff;
+  letter-spacing:12px;
+  text-shadow: 0 0 8px #38bdf8, 0 0 22px #0ea5e9;
+  opacity:0;
+  animation: logoIn 2s ease forwards, breathe 1.5s ease-in-out 2s infinite alternate;
 }
-.logo-circle{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  background:#22b970;
+.tip{
+  margin-top:32px;
+  color:#94a3b8;
+  font-size:14px;
+  opacity:0;
+  animation: logoIn 2s ease 1s forwards;
+}
+@keyframes logoIn{
+  from{opacity:0; transform:scale(0.9)}
+  to{opacity:1; transform:scale(1)}
+}
+@keyframes breathe{
+  from{text-shadow:0 0 8px #38bdf8,0 0 22px #0ea5e9}
+  to{text-shadow:0 0 14px #38bdf8,0 0 35px #0ea5e9}
+}
+@keyframes fadeOut{
+  to{opacity:0;pointer-events:none}
+}
+.content{
+  width:100vw;
+  height:100vh;
+  color:white;
   display:grid;
   place-items:center;
-  color:white;
-  font-weight:bold;
-}
-/* 窗户暖光 */
-.windows{
-  display:grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap:6px;
-  padding:12px;
-  height:calc(100% - 42px);
-  background:#141820;
-}
-.window{
-  background: linear-gradient(180deg, #ffddaa, #ddb877);
-  opacity:0.82;
-  border-radius:2px;
-  box-shadow: 0 0 14px #ffc98066;
-}
-/* 地面公路 */
-.road{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:80px;
-  background:#0c1016;
-}
-.road-line{
-  position:absolute;
-  top:32px;
-  width:100%;
-  height:4px;
-  background: repeating-linear-gradient(90deg, #cccccc 0 40px, transparent 40px 80px);
-  opacity:0.6;
-}
-/* 树 简化 */
-.tree{
-  position:absolute;
-  bottom:80px;
-  width:70px;
-  height:190px;
-  background:#0b1420;
-  clip-path: polygon(50% 0, 90% 100%, 10% 100%);
-  opacity:0.7;
-}
-.tree.t1{left:8%;height:220px;}
-.tree.t2{left:14%;height:240px;}
-.tree.t3{right:14%;height:230px;}
-.tree.t4{right:8%;height:250px;}
-/* 路灯 */
-.lamp{
-  position:absolute;
-  bottom:80px;
-  right:12%;
-  width:6px;
-  height:260px;
-  background:#11151c;
-}
-.lamp-head{
-  position:absolute;
-  top:0;
-  left:-18px;
-  width:45px;
-  height:10px;
-  background:#11151c;
-  border-radius:2px;
+  font-size:24px;
 }
 </style>
 </head>
 <body>
-<div class="sky">
-  <div class="fuji"></div>
-  <div class="fog"></div>
+<div class="boot-screen">
+  <div class="codex-text">CODEX</div>
+  <div class="tip">系统启动中 · 请稍候</div>
 </div>
-
-<div class="tree t1"></div>
-<div class="tree t2"></div>
-<div class="tree t3"></div>
-<div class="tree t4"></div>
-
-<div class="shop-wrap">
-  <div class="shop">
-    <div class="sign-top">
-      <div class="star-text">STARBUCKS</div>
-      <div class="logo-circle">☕</div>
-    </div>
-    <div class="windows">
-      <div class="window"></div>
-      <div class="window"></div>
-      <div class="window"></div>
-      <div class="window"></div>
-      <div class="window"></div>
-      <div class="window"></div>
-      <div class="window"></div>
-      <div class="window"></div>
-    </div>
-  </div>
-</div>
-
-<div class="lamp">
-  <div class="lamp-head"></div>
-</div>
-
-<div class="road">
-  <div class="road-line"></div>
+<div class="content">
+  动画播放完毕
 </div>
 </body>
 </html>
